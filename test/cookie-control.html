@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>cookie-control.js Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.0.2/mocha.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.0.2/mocha.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.min.js"></script>
+
+  <script src="../cookie-control.js"></script>
+
+</head>
+<body>
+  <div id="mocha"></div>
+</body>
+<script>
+  mocha.setup('bdd');
+</script>
+<script>
+var assert = chai.assert;
+describe('cookie-control', function() {
+  describe('reset', function() {
+    it ('reset is active', function() {
+      cookieControl.reset();
+      assert.strictEqual(document.cookie, '');
+    });
+  });
+
+  describe('save', function() {
+    beforeEach(function(done) {
+      cookieControl.reset();
+      done();
+    });
+
+    it ('array is saved', function() {
+      var array = ['aaa', 'bbb', 'cdn'];
+      cookieControl.save('test', array);
+      assert.strictEqual(document.cookie, 'test=' + encodeURIComponent('aaa,bbb,cdn'));
+    });
+
+    it('string is saved', function() {
+      var string = 'this is a string.';
+      cookieControl.save('test', string);
+      assert.strictEqual(document.cookie, 'test=' + encodeURIComponent('this is a string.'));
+    });
+  });
+
+  describe('remove', function() {
+    beforeEach(function(done) {
+      cookieControl.reset();
+      done();
+    });
+
+    it ('remove is active', function() {
+      var array = ['aaa', 'bbb', 'cdn'];
+      cookieControl.save('test', array);
+      cookieControl.remove('test');
+      assert.strictEqual(document.cookie, '');
+    });
+
+    it ('remove only target', function() {
+      var array = ['aaa', 'bbb', 'cdn'];
+      var string = 'this is a string.';
+      cookieControl.save('test1', array);
+      cookieControl.save('test2', string);
+      cookieControl.remove('test1');
+      assert.strictEqual(document.cookie, 'test2=' + encodeURIComponent('this is a string.'));
+    });
+  });
+
+  describe('toHash', function() {
+    beforeEach(function(done) {
+      cookieControl.reset();
+      done();
+    });
+
+    it ('toHash is active', function() {
+      var array = ['aaa', 'bbb', 'cdn'];
+      var string = 'this is a string.';
+      cookieControl.save('test1', string);
+      cookieControl.save('test2', array);
+      var hash = cookieControl.toHash();
+
+
+      assert.strictEqual(hash.test1, 'this is a string.');
+      assert.strictEqual(hash.test2, 'aaa,bbb,cdn');
+    });
+  });
+});
+
+$(function() {
+    mocha.run();
+});
+</script>
+</html>
