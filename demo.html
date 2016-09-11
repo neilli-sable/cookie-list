@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="cookie-list.css">
+  <title>お気に入りリスト</title>
+</head>
+<body>
+  <div id="console"></div>
+  <div id="list">
+    <ul>
+      <li>
+        <span class="cookie-list-id">123</span>
+        <button class="cookie-list-button">&#9733;</button>
+      </li>
+      <li>
+        <span class="cookie-list-id">456</span>
+        <button class="cookie-list-button">&#9733;</button>
+      </li>
+      <li>
+        <span class="cookie-list-id">789</span>
+        <button class="cookie-list-button">&#9733;</button>
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="cookie-control.js"></script>
+<script src="cookie-list.js"></script>
+<script>
+cookieList.init();
+
+function consoleOut(text) {
+  document.getElementById('console').innerHTML = text;
+}
+function cookieToString(cookie) {
+  consoleOut(cookieControl.toHash().favorite);
+}
+
+</script>
+</html>
