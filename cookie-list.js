@@ -1,19 +1,10 @@
 var cookieList = (function() {
   var _list = [];
   var _key = 'favorite';
-  var _libName = 'cookie-list';
 
   var init = function() {
     _list = [];
     load();
-
-    var buttons = document.getElementsByClassName(_libName + '-button');
-    [].forEach.call(buttons, function(aButton) {
-      aButton.addEventListener('click', function() {
-        toggle(this.parentNode.getElementsByClassName(_libName + '-id')[0].textContent);
-        save();
-      });
-    });
   };
 
   var load = function() {
@@ -26,7 +17,9 @@ var cookieList = (function() {
     var done = add(data);
     if (!done) {
       del(data);
+      return false;
     }
+    return true;
   };
 
   var add = function(data) {
@@ -47,8 +40,10 @@ var cookieList = (function() {
     _list.forEach(function(value, index) {
       if (value === data) {
         _list.splice(index, 1);
+        return true;
       }
     });
+    return false;
   };
 
   var save = function() {
@@ -61,6 +56,7 @@ var cookieList = (function() {
 
   return {
     init: init,
+    toggle: toggle,
     add: add,
     del: del,
     save: save,

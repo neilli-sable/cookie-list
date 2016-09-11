@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>cookie-list.js Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.0.2/mocha.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.0.2/mocha.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.min.js"></script>
+
+  <script src="../cookie-control.js"></script>
+  <script src="../cookie-list.js"></script>
+
+</head>
+<body>
+  <div id="mocha"></div>
+</body>
+<script>
+  mocha.setup('bdd');
+</script>
+<script>
+var assert = chai.assert;
+describe('cookie-list', function() {
+  describe('init', function() {
+    it ('empty init', function() {
+      cookieControl.reset();
+    });
+  });
+
+
+$(function() {
+    mocha.run();
+});
+</script>
+</html>
