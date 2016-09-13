@@ -37,12 +37,41 @@
   function cookieToString(cookie) {
     consoleOut(cookieControl.toHash().favorite);
   }
-  var buttons = document.getElementsByClassName('cookie-list-button');
+
+  var _libName = 'cookie-list';
+
+  var list = document.getElementById(_libName).getElementsByTagName('li');
+  [].forEach.call(list, function(item) {
+    var id = item.getElementsByClassName(_libName + '-id')[0].textContent;
+    var button = item.getElementsByClassName(_libName + '-button')[0];
+    if (cookieList.list().indexOf(id) > -1) {
+      button.style.color = '#ffff00';
+    }
+  });
+
+  var buttons = document.getElementsByClassName(_libName + '-button');
+  [].forEach.call(buttons, function(aButton) {
+    aButton.addEventListener('click', function() {
+      // list control
+      var star = cookieList.toggle(this.parentNode.getElementsByClassName(_libName + '-id')[0].textContent);
+      cookieList.save();
+
+      // icon change
+      if (star) {
+        this.style.color = '#ffff00';
+      } else {
+        this.style.color = '#000000';
+      }
+    });
+  });
+
   [].forEach.call(buttons, function(aButton) {
     aButton.addEventListener('click', function() {
       cookieToString(document.cookie);
     });
   });
+
+
   cookieToString(document.cookie || '');
 
   </script>
