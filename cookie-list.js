@@ -39,8 +39,8 @@ var cookieList = (function() {
   var load = function(callback) {
     if (cookieControl.toHash().favorite) {
       _list = cookieControl.toHash().favorite.split(',');
-      callback();
     }
+    callback();
   };
 
   var toggle = function(data) {

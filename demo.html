@@ -25,26 +25,26 @@
       </li>
     </ul>
   </div>
-</body>
-<script src="cookie-control.js"></script>
-<script src="cookie-list.js"></script>
-<script>
-cookieList.init();
+  <script src="cookie-control.js"></script>
+  <script src="cookie-list.js"></script>
+  <script>
+  cookieList.init();
 
-// for debug
-function consoleOut(text) {
-  document.getElementById('console').innerHTML = text;
-}
-function cookieToString(cookie) {
-  consoleOut(cookieControl.toHash().favorite);
-}
-var buttons = document.getElementsByClassName('cookie-list-button');
-[].forEach.call(buttons, function(aButton) {
-  aButton.addEventListener('click', function() {
-    cookieToString(document.cookie);
+  // for debug
+  function consoleOut(text) {
+    document.getElementById('console').innerHTML = text;
+  }
+  function cookieToString(cookie) {
+    consoleOut(cookieControl.toHash().favorite);
+  }
+  var buttons = document.getElementsByClassName('cookie-list-button');
+  [].forEach.call(buttons, function(aButton) {
+    aButton.addEventListener('click', function() {
+      cookieToString(document.cookie);
+    });
   });
-});
-cookieToString(document.cookie);
+  cookieToString(document.cookie || '');
 
-</script>
+  </script>
+</body>
 </html>
