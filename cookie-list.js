@@ -2,9 +2,10 @@ var cookieList = (function() {
   var _list = [];
   var _key = 'favorite';
 
+
   var init = function() {
-    _list = [];
-    load();
+   _list = [];
+   load();
   };
 
   var load = function() {
@@ -23,13 +24,9 @@ var cookieList = (function() {
   };
 
   var add = function(data) {
-    var exist = _list.some(function(value) {
-      if (value === data) {
-        return true;
-      }
-    });
+    if (!data) return;
 
-    if (!exist) {
+    if (!exist(data)) {
       _list.push(data);
       return true; // add done
     }
@@ -37,6 +34,8 @@ var cookieList = (function() {
   };
 
   var del = function(data) {
+    if (!data) return;
+
     _list.forEach(function(value, index) {
       if (value === data) {
         _list.splice(index, 1);
@@ -46,6 +45,19 @@ var cookieList = (function() {
     return false;
   };
 
+  var exist = function(data) {
+    if (!data) return;
+
+    var exist = _list.some(function(value) {
+      if (value === data) {
+        return true;
+      }
+    });
+
+    exist = exist || false;
+
+    return exist;
+  };
   var save = function() {
     cookieControl.save(_key, _list);
   };
@@ -59,6 +71,7 @@ var cookieList = (function() {
     toggle: toggle,
     add: add,
     del: del,
+    exist: exist,
     save: save,
     list: list
   };
